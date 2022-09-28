@@ -1,9 +1,8 @@
-package main
+package bot
 
 import (
 	"fmt"
 	"github.com/slack-go/slack"
-	"os"
 )
 
 func handleError(err error) {
@@ -12,11 +11,11 @@ func handleError(err error) {
 		return
 	}
 }
-func main() {
+func sendMessage() {
 	// SLACK_BOT is in env file contains token of Slack app which lets us connect our bot
-	api := slack.New(os.Getenv("SLACK_BOT_AUTH_TOKEN"))
+	api := slack.New(authToken)
 
-	chID, timestamp, err := api.PostMessage("C044Z5GB63S",
+	chID, timestamp, err := api.PostMessage(channelId,
 		slack.MsgOptionText("Hello, Slack bot", false))
 	handleError(err)
 	fmt.Printf("Message successfully sent to channel %s at: %s", chID, timestamp)
